@@ -1,0 +1,4 @@
+.venv/
+*.tex
+*.pdf
+*.log
