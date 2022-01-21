@@ -1,4 +1,3 @@
-
 from git import Repo
 import sys
 import os
@@ -79,15 +78,16 @@ class GitDag:
 
 
 class GitGraph:
-    def __init__(self, repo_path):
+    def __init__(self, repo_path, filename='repo'):
         self.repo = Repo(repo_path)
+        self.filename = filename
         self.dag = GitDag(repo_path)
 
     def make_graph(self):
         self.generate_tex()
 
     def generate_tex(self):
-        file = open('repo.tex', 'w')
+        file = open(self.filename + '.tex', 'w')
         print('\\documentclass{standalone}', file=file)
         print('\\usepackage{gitdags}', file=file)
         print('\\begin{document}', file=file)
@@ -112,13 +112,21 @@ class GitGraph:
 
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print("Usage: {} <path to repo>".format(sys.argv[0]))
+    if len(sys.argv) < 2:
+        print("Usage: {} <path to repo> [<image name>]".format(sys.argv[0]))
         sys.exit(1)
     repo_path = sys.argv[1]
-    GitGraph(repo_path).make_graph()
-    print('Created repo.tex')
 
-    os.system('pdflatex repo.tex > /dev/null 2>&1')
-    os.system('rm repo.aux repo.log texput.log')
-    print('Created repo.pdf')
+    if len(sys.argv) == 3:
+        filename = sys.argv[2]
+    else:
+        filename = 'repo'
+
+    print(repo_path, filename)
+
+    GitGraph(repo_path, filename).make_graph()
+    print('Created {}.tex'.format(filename))
+
+    os.system('pdflatex {}.tex > /dev/null 2>&1'.format(filename))
+    os.system('rm {}.aux {}.log texput.log > /dev/null 2>&1'.format(filename, filename))
+    print('Created {}.pdf'.format(filename))
