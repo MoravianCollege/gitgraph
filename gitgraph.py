@@ -122,8 +122,6 @@ if __name__ == '__main__':
     else:
         filename = 'repo'
 
-    print(repo_path, filename)
-
     GitGraph(repo_path, filename).make_graph()
     print('Created {}.tex'.format(filename))
 
