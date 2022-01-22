@@ -79,7 +79,11 @@ class GitDag:
 
 class GitGraph:
     def __init__(self, repo_path, filename='repo'):
+
         self.repo = Repo(repo_path)
+        for branch in self.repo.branches:
+            if '_' in branch.name:
+                raise Exception('Underscore in branch name cannot render in pdflaex: {}'.format(branch.name))
         self.filename = filename
         self.dag = GitDag(repo_path)
 
@@ -95,10 +99,15 @@ class GitGraph:
         print('\\gitDAG[grow right sep = 2em]{', file=file)
         print(self.dag.as_string(), file=file)
         print('};', file=file)
+        referenced_commits = {}
         for branch in self.repo.branches:
             print('\\gitbranch', file=file)
             print('{', branch.name, '}', sep='', file=file)
-            print('{above=of', short_hash(branch.commit), '}', file=file)
+            if branch.commit in referenced_commits:
+                print('{right=of', referenced_commits[branch.commit], '}', file=file)
+            else:
+                print('{above=of', short_hash(branch.commit), '}', file=file)
+                referenced_commits[branch.commit] = branch.name
             print('{', short_hash(branch.commit), '}', sep='', file=file)
         if self.repo.head.is_detached:
             head_name = short_hash(self.repo.head.commit)
