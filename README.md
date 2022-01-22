@@ -12,6 +12,9 @@ the history of a repo.  It is "dumb" because sometimes the branch tags
 overlap the commit hashes.  The tool will generate the `.tex` file, and you
 can edit to fix this issue.
 
+NOTE: You CANNOT name a branch with an `_` (underscore) in it.  This a sepcial character in latex, and the `gitdags` library also uses the name as an identifier.  So you can't simply replace it with `\_`.
+
+
 ## Requirements
 
 * `gitPython`[https://gitpython.readthedocs.io/en/stable/index.html]
