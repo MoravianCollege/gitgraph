@@ -1,6 +1,7 @@
 .venv/
 *.tex
 *.pdf
+*.png
 *.log
 .idea/
 .env
