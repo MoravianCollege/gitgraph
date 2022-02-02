@@ -135,5 +135,7 @@ if __name__ == '__main__':
     print('Created {}.tex'.format(filename))
 
     os.system('pdflatex {}.tex > /dev/null 2>&1'.format(filename))
-    os.system('rm {}.aux {}.log texput.log > /dev/null 2>&1'.format(filename, filename))
-    print('Created {}.pdf'.format(filename))
+    #print('Created {}.pdf'.format(filename))
+    os.system('sips -s format png {}.pdf --out {}.png > /dev/null 2>&1'.format(filename, filename))
+    print('Created {}.png'.format(filename))
+    os.system('rm {}.aux {}.log texput.log {}.pdf > /dev/null 2>&1'.format(filename, filename, filename))
