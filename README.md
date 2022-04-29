@@ -1,4 +1,4 @@
-
+Marie
 ## Motivation
 
 I wanted to create visualizations of a git history similar to those
