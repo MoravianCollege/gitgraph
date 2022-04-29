@@ -16,7 +16,7 @@ NOTE: You CANNOT name a branch with an `_` (underscore) in it.  This a sepcial c
 
 
 ## Requirements
-
+Anna 
 * `gitPython`[https://gitpython.readthedocs.io/en/stable/index.html]
 * `pdflatex` - On a Mac, I suggest [MacTex](http://www.tug.org/mactex/)
 * [`gitdags`](https://github.com/jubobs/gitdags).  The `.sty` file must be 
