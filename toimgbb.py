@@ -1,4 +1,5 @@
 import requests
+import pyperclip
 import dotenv
 import os
 import base64
@@ -25,4 +26,6 @@ url = 'https://api.imgbb.com/1/upload'
 
 result = requests.post(url, params=params, data=data)
 
-print(result.json()['data']['url'])
+url = result.json()['data']['url']
+pyperclip.copy(url)
+print('{} copied to clipboard'.format(url))
